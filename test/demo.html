@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<script src="https://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script>
+
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <table border="1" style="width: 100%;">
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+        <tr ng-repeat="item in list">
+            <td>
+                <span ng-hide="item.active">{{item.name}}</span>
+                <span ng-show="item.active"><input type="text" ng-model="item.name"></span>
+            </td>
+            <td>
+                <span ng-hide="item.active">{{item.age}}</span>
+                <span ng-show="item.active"><textarea style="width: 90%;height: 80px;" ng-model="item.age"></textarea></span>
+            </td>
+            <td>
+                <span ng-hide="item.active">{{item.sex}}</span>
+                <span ng-show="item.active"><input type="text" ng-model="item.sex"></span>
+            </td>
+            <td>
+                <button ng-click="operation(item, $index, 'add')">新增</button>
+                <button ng-click="operation(item, $index, 'delete')">删除</button>
+                <button ng-click="operation(item, $index, 'change')">修改</button>
+                <button ng-click="operation(item, $index, 'save')">保存</button>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+       var list = [
+           {name: 'liu', age: 20, sex: '女'},
+           {name: 'hui', age: 21, sex: '女'},
+           {name: 'liu hui', age: 22, sex: '男'}
+        ]
+
+//        处理list数据
+        for (var i = 0; i < list.length; i ++) {
+           list[i].active = false;
+        }
+
+        $scope.list = list;
+
+       $scope.operation = function(item, index, type) {
+           switch (type) {
+               case 'add':
+                   $scope.list.push({
+                       name: '',
+                       age: '',
+                       sex: '',
+                       active: true
+                   })
+                   break;
+               case 'delete':
+                   $scope.list.splice(index, 1);
+                   break;
+               case 'change':
+                   item.active = true;
+                   break;
+               case 'save':
+                   item.active = false;
+                   break;
+               default:
+                   throw new Error('no this type: ' + type);
+           }
+       }
+////        新增
+//        $scope.add = function() {
+//            $scope.list.push({
+//                name: '',
+//                age: '',
+//                sex: '',
+//                active: true
+//            })
+//        };
+//
+////        删除
+//        $scope.delete = function(index) {
+//            $scope.list.splice(index, 1);
+//        };
+//
+////        修改
+//        $scope.change = function(item) {
+//            item.active = true;
+//        };
+//
+////        保存
+//        $scope.save = function(item) {
+//            item.active = false;
+//        };
+    });
+</script>
+
+</body>
+</html>
