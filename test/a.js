@@ -6,3 +6,9 @@ module.exports = {
     console.log(this);
   }
 }
+
+function evn(data) {
+  this.data = data;
+}
+evn.prototype = new Event();
+console.log(new evn);

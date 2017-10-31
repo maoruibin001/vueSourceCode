@@ -8,7 +8,6 @@ Vue.config.productionTip = false
 console.log('config: ',Vue.config);
 
 /* eslint-disable no-new */
-debugger;
 new Vue({
     el: '#app',
     router,

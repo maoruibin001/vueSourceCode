@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<p class="page">
+<p class="page" onclick="parent2()">
     <a onclick="setUrl('mao')">[ <span>mao</span> ]</a>
     <a onclick="setUrl('rui')">[ <span>rui</span> ]</a>
     <a onclick="setUrl('bin')">[ <span>bin</span> ]</a>
@@ -16,14 +16,44 @@
 </div>
 
 <script>
-  function getFullUrl(hash) {
-    let hashArr = location.href.split('#');
-    hashArr.length > 1 ? hashArr.splice(1, 1, hash) : hashArr.push(hash);
-    return hashArr.join('#');
+  function parent2() {
+    console.log(event.target);
+    console.log(event.currentTarget);
+  }
+  function emit(type, data) {
+    var event = document.createEventObject();
+    event.eventType = 'message';
+    event.data = data;
+//触发document上绑定的自定义事件ondataavailable
+    document.fireEvent('ondataavailable', event);
   }
 
+  //  class Evn extends Event{
+//    constructor(type, data) {
+//      super(type, data);
+//      this.data = data;
+//    }
+//  }
+//  let evn = new Evn('evn', {name: 'mao'});
+
+
+  window.addEventListener('evn', function(data) {
+    debugger;
+    console.log(arguments);
+  })
+  emit('evn', {name: 'mao'})
+  function getFullUrl(hash) {
+//    window.dispatchEvent(evn);
+    let hashArr = location.href.split('#');
+    hashArr.length > 1 ? hashArr.splice(1, 1, hash) : hashArr.push(hash);
+    console.log(333333)
+    return hashArr.join('#');
+  }
   function setUrl(name) {
-    window.history.pushState({name:name}, null, getFullUrl(name));
+    if (name === history.state.name) {
+      return;
+    }
+    window.history.pushState({name: name}, null, getFullUrl(name));
     window.dispatchEvent(new PopStateEvent('popstate', {
       bubbles: false,
       cancelable: false,
@@ -43,13 +73,14 @@
     //默认显示第一页
     //修改当前的历史记录
     history.replaceState({
-      url: 'mao'
-    },
+        url: 'mao'
+      },
       '',
       getFullUrl('mao'));
   })()
 
   window.addEventListener('popstate', function (state) {
+    debugger;
     console.log(state);
   })
 </script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button onclick="removeE()">remove</button>
+
+<button onclick="emit('hi', {age: 20})">emit</button>
+<script>
+    function removeE(type, name) {
+      eventObj.remove('hi')
+    }
+
+    function emit(type, data) {
+      eventObj.emit(type, data);
+    }
+    let eventObj = {
+      eventObj: {},
+      addEvent: function(type, cb) {
+        this.eventObj[type] ? this.eventObj[type].push({name: cb.name, cb: cb}) : this.eventObj[type] = [{name: cb.name, cb: cb}]
+      },
+      emit: function(type, data) {
+        if (this.eventObj[type]) {
+          for (let i = 0; i < this.eventObj[type].length; i ++) {
+            this.eventObj[type][i].cb(data);
+          }
+        }
+      },
+      remove: function(type, name) {
+        let eventObj = this.eventObj;
+        if (!type) {
+          this.eventObj = {};
+          return;
+        }
+        if (eventObj[type]) {
+          if (!name) {
+            eventObj[type] = null;
+            return true;
+          } else {
+            for (let i = eventObj[type].length - 1; i >= 0; i --) {
+              if (eventObj[type][i].name === name) {
+                eventObj[type].splice(i, 1);
+                return true;
+              }
+            }
+            return false;
+          }
+        }
+      }
+    }
+
+    eventObj.addEvent('hi', function(data) {
+      console.log(data);
+    })
+
+    function aa(data) {
+      console.log(333);
+    }
+    eventObj.addEvent('hi', aa)
+
+    eventObj.emit('hi', {name: 'mao', age: '20'})
+</script>
+</body>
+</html>
