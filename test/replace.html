@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text">
+<button onclick="toA()">A</button>
+<button onclick="toB()">B</button>
+<button onclick="toC()">C</button>
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script>
+    $(window).on('hashchange', function() {
+      debugger;
+      console.log(arguments)
+    })
+
+    function getFullUrl(hash) {
+      let hashArr = location.href.split('#');
+      hashArr.length > 1 ? hashArr.splice(1, 1, hash) : hashArr.push(hash);
+      return hashArr.join('#');
+    }
+    function toA() {
+      location.href = getFullUrl('mao');
+//      history.pushState({}, null, getFullUrl('mao'))
+    }
+
+    function toB() {
+      location.href = getFullUrl('rui');
+//      history.pushState({}, null, getFullUrl('rui'))
+
+    }
+
+    function toC() {
+      location.href = getFullUrl('bin');
+//      history.pushState({}, null, getFullUrl('bin'))
+    }
+</script>
+</body>
+</html>

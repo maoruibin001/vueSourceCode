@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p class="page">
+    <a onclick="setUrl('mao')">[ <span>mao</span> ]</a>
+    <a onclick="setUrl('rui')">[ <span>rui</span> ]</a>
+    <a onclick="setUrl('bin')">[ <span>bin</span> ]</a>
+</p>
+<div>
+    <img/>
+    <p class="title"></p>
+</div>
+
+<script>
+  function getFullUrl(hash) {
+    let hashArr = location.href.split('#');
+    hashArr.length > 1 ? hashArr.splice(1, 1, hash) : hashArr.push(hash);
+    return hashArr.join('#');
+  }
+
+  function setUrl(name) {
+    window.history.pushState({name:name}, null, getFullUrl(name));
+    window.dispatchEvent(new PopStateEvent('popstate', {
+      bubbles: false,
+      cancelable: false,
+      state: {
+        name: name,
+      }
+    }));
+//
+//    var url = location.pathname + '?page=' + page;
+//    history.pushState({
+//      url: url
+//    }, '', url);
+  }
+  //每次点击按钮的时候就往历史记录里面增加一个条目
+
+  (function () {
+    //默认显示第一页
+    //修改当前的历史记录
+    history.replaceState({
+      url: 'mao'
+    },
+      '',
+      getFullUrl('mao'));
+  })()
+
+  window.addEventListener('popstate', function (state) {
+    console.log(state);
+  })
+</script>
+</body>
+</html>

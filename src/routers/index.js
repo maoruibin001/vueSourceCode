@@ -7,9 +7,13 @@ import App from '../App.vue'
 import One from '../components/1.js';
 import First from '../components/first.vue'
 import Second from '../components/second.vue'
-console.log(First)
 Vue.use(VueRouter)
 
+Vue.mixin({
+  mounted() {
+      console.log('kkkkkkk')
+  }
+})
 // const routes = [
 //  //重定向
 //  {

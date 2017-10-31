@@ -1,16 +1,40 @@
 <template>
-    <div>我是第一个页面</div>
+    <div>
+        <div>我是第一个页面</div>
+        <button @click="replace()">replace</button>
+    </div>
+
 </template>
 <script>
-    console.log(33333333333333333)
-    export default {
-        name: 'first',
-        data () {
-            return {
-                msg: 'Welcome to Your Vue.js App'
-            }
-        }
+  import $ from 'jquery';
+  export default {
+    name: 'first',
+    data () {
+      return {
+        msg: 'Welcome to Your Vue.js App'
+      }
+    },
+    methods: {
+      replace() {
+        debugger;
+        this.$router.push({ name: '/second', params: { userId: 222 }})
+//        $.ajax({
+//          url: 'http://localhost:8098/userData',
+//          type: 'get',
+//          dataType: 'json',
+//          data: {
+//            name: 'mao'
+//          },
+//          success: function(data) {
+//            console.log(data);
+//          },
+//          error: function(err) {
+//            console.log(err);
+//          }
+//        })
+      }
     }
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="toA()">a</button>
+<button onclick="toB()">b</button>
+<button onclick="toC()">c</button>
+
+
+<script>
+    window.addEventListener('popstate', function(state) {
+      debugger;
+      console.log(arguments);
+    })
+    function toA() {
+      var state = { 'page_id': 'A', 'user_id': 5 };
+      var title = 'Hello World';var url = 'hello-world.html';
+      history.pushState(state, title, url);
+    }
+
+    function toB() {
+      var state = { 'page_id': 'B', 'user_id': 5 };
+      var title = 'Hello World2';var url = 'hello-world2.html';
+      history.pushState(state, title, url);
+
+    }
+
+    function toC() {
+      var state = { 'page_id': 'C', 'user_id': 5 };
+      var title = 'Hello World3';var url = 'hello-world3.html';
+      history.pushState(state, title, url);
+    }
+</script>
+</body>
+</html>

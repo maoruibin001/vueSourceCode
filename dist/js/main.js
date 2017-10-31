@@ -22449,6 +22449,7 @@ var positionStore = Object.create(null);
 
 function setupScroll () {
   window.addEventListener('popstate', function (e) {
+    debugger;
     saveScrollPosition();
     if (e.state && e.state.key) {
       setStateKey(e.state.key);
@@ -23041,6 +23042,7 @@ var HTML5History = (function (History$$1) {
     }
 
     window.addEventListener('popstate', function (e) {
+      debugger
       var current = this$1.current;
       this$1.transitionTo(getLocation(this$1.base), function (route) {
         if (expectScroll) {
@@ -23071,6 +23073,7 @@ var HTML5History = (function (History$$1) {
   };
 
   HTML5History.prototype.replace = function replace (location, onComplete, onAbort) {
+    debugger;
     var this$1 = this;
 
     var ref = this;
@@ -23127,6 +23130,7 @@ var HashHistory = (function (History$$1) {
     var this$1 = this;
 
     window.addEventListener('hashchange', function () {
+      debugger;
       if (!ensureSlash()) {
         return
       }
@@ -23144,6 +23148,7 @@ var HashHistory = (function (History$$1) {
   };
 
   HashHistory.prototype.replace = function replace (location, onComplete, onAbort) {
+    debugger;
     this.transitionTo(location, function (route) {
       replaceHash(route.fullPath);
       onComplete && onComplete(route);
@@ -23231,6 +23236,7 @@ var AbstractHistory = (function (History$$1) {
   };
 
   AbstractHistory.prototype.replace = function replace (location, onComplete, onAbort) {
+    debugger;
     var this$1 = this;
 
     this.transitionTo(location, function (route) {
@@ -23384,6 +23390,7 @@ VueRouter.prototype.push = function push (location, onComplete, onAbort) {
 };
 
 VueRouter.prototype.replace = function replace (location, onComplete, onAbort) {
+  debugger;
   this.history.replace(location, onComplete, onAbort);
 };
 
